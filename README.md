@@ -1,6 +1,8 @@
 # lua-midi
 
-A pure Lua implementation to read midi files using a callback function.
+A Roblox Lua implementation to read midi files using a callback function.
+
+## Fixes
 
 ## Usage
 
@@ -9,26 +11,21 @@ The library allows not only reading all tracks in a midi file at once, but also 
 Reading all tracks in a midi file:
 
 ```lua
-local midi = require "midi"
+local midi = require(game.ReplicatedStorage.midi)
 
-local file = assert(io.open("short-tune.mid"))
+local file = game.ReplicatedStorage.MidiString.Value
 midi.process(file, print)
-
-file:close()
 ```
 
 Reading only the last track in a midi file:
 
 ```lua
-local midi = require "midi"
+local midi = require(game.ReplicatedStorage.midi)
 
-local file = assert(io.open("short-tune.mid"))
+local file = game.ReplicatedStorage.MidiString.Value
 local tracks = midi.processHeader(file) -- find number of tracks
 
-file:seek("set") -- seek back to the beginning of the file
 midi.processTrack(file, print, tracks)
-
-file:close()
 ```
 
 ---
