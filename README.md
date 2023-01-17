@@ -4,6 +4,8 @@ A Roblox Lua implementation to read midi files using a callback function.
 
 ## Fixes
 
+* Switched all of the bit operations to use their bit32 counterpart (<< becomes bit32.lshift, | becomes bit32.bor)
+
 ## Usage
 
 The library allows not only reading all tracks in a midi file at once, but also reading only the header (e.g. to a find out the track count) and then reading a single, specific midi track.
