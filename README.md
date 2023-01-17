@@ -1,4 +1,4 @@
-# lua-midi
+# roblox-midi
 
 A Roblox Lua implementation to read midi files using a callback function.
 
