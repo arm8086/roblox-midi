@@ -73,25 +73,3 @@ It returns how many bytes it had to read from the stream, followed by the update
 | `runningStatus` | The running status of a previous midi event.             | *optional*   |
 
 ---
-
-## Examples
-
-### [1-read-full-midi.lua](examples/1-read-full-midi.lua)
-
-Prints all midi events in the given midi file.
-
-### [2-read-single-track.lua](examples/2-read-single-track.lua)
-
-Prints only the midi events of a single track in the midi file.
-
-### [3-dispatch-table.lua](examples/3-dispatch-table.lua)
-
-Handles only specific midi events using a dispatch table.
-
-### [4-event-signatures.lua](examples/4-event-signatures.lua)
-
-Lists the signatures, on how the callback is invoked, for each midi event.
-
-### [5-single-events.lua](examples/5-single-events.lua)
-
-Shows how to read single events from a stream.
