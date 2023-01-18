@@ -2,6 +2,36 @@
 ---@param stream file* The stream to read from.
 ---@param count integer The count of bytes to read.
 ---@return string data The read bytes.
+
+local fio = {}
+fio.__index = fio
+fio.baseindex = {
+	cur = function(f)
+		return f.pointer
+	end,
+	set = function(f)
+		return 1
+	end,
+	["end"] = function(f)
+		return #f.stream
+	end,
+}
+function fio.new(str, mode)
+	return setmetatable({stream = str, mode = mode, pointer = 1}, fio)
+end
+function fio:read(bytes)
+	if self.mode:find("b") then
+		local bytes2 = self.stream:sub(self.pointer, self.pointer + bytes)
+		self.pointer += bytes
+		return bytes2
+	end
+end
+function fio:seek(whence, offset)
+	local base = self.baseindex[whence](self)
+	self.pointer = base + offset
+	return self.pointer
+end
+
 local function read(stream, count)
 	local result = ""
 	while #result ~= count do
@@ -63,7 +93,7 @@ local midiEvent = {
 	end,
 	[0xE0] = function(stream, callback, channel, fb)
 		local lsb, msb = ("I1I1"):unpack(fb .. stream:read(1))
-		
+
 		callback("pitch", channel, bit32.bor(lsb, bit32.lshift(msb, 7)) / 0x2000 - 1)
 		return 2
 	end
@@ -298,5 +328,6 @@ return {
 	process = process,
 	processHeader = processHeader,
 	processTrack = processTrack,
-	processEvent = processEvent
+	processEvent = processEvent,
+	fio = fio
 }
